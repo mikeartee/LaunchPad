@@ -1,5 +1,5 @@
 # LaunchPad User Manual
-*Universal Project Management Desktop Application*
+*Universal Project Management Native Windows Application*
 
 ## Table of Contents
 1. [Getting Started](#getting-started)
@@ -13,26 +13,39 @@
 
 ## Getting Started
 
-### Installation
-1. **Install Node.js** (if not already installed):
-   - Download from https://nodejs.org
-   - Choose the LTS version
+### Installation Options
 
-2. **Install LaunchPad**:
+**Option 1: Standalone Executable**
+- Download `LaunchPad.exe`
+- Double-click to run (no installation required)
+- Portable - runs from any location
+
+**Option 2: Windows Installer**
+- Download `LaunchPad_0.1.0_x64-setup.exe`
+- Run installer for full Windows integration
+- Adds Start Menu shortcuts and uninstaller
+
+**Option 3: Build from Source**
+1. **Install Rust** (required for Tauri):
    ```bash
-   cd "path/to/LaunchPad"
-   npm install
+   winget install Rustlang.Rustup
    ```
 
-3. **Run the application**:
+2. **Install Node.js**:
+   - Download from https://nodejs.org
+
+3. **Clone and build**:
    ```bash
-   npm start
+   git clone https://github.com/mikeartee/LaunchPad.git
+   cd LaunchPad
+   npm install
+   npm run tauri:build
    ```
 
 ### First Launch
-- **Welcome Tour**: On first launch, you'll see a welcome modal offering a guided tour
-- **Take the Tour**: Recommended for new users - shows key features and navigation
-- **Skip Tour**: You can always restart it later using `F1` or the "📚 Take Tour" button
+- **Native Windows App**: LaunchPad runs as a true Windows application
+- **No Browser Required**: All functionality built into the native app
+- **Fast Performance**: Rust-powered backend for optimal speed
 
 ---
 
@@ -58,7 +71,7 @@ YourProject/
 - `Task Type` - Type of task (e.g., "Research", "Implementation")
 - `Summary` - Task description
 
-**Gantt Chart.csv** - Required columns (pipe-separated):
+**Gantt Chart.csv** - Required columns (pipe-separated `|`):
 - `UUID` - Unique identifier
 - `Task` - Task name
 - `Start Date` - Start date (YYYY-MM-DD)
@@ -79,124 +92,101 @@ YourProject/
 ### 📋 Tasks Tab
 **Main task management interface**
 
-**Task Cards Display:**
+**Task Display:**
 - ✅ Checkbox to mark complete/incomplete
-- 📝 Phase and type badges
-- 👤 Assignment information
-- ⏱️ Time tracking display
-- 💭 Notes preview
+- 📝 Phase and type information
+- Task summary and details
+- Progress tracking
 
-**Task Actions:**
-- **▶️/⏹️ Timer**: Start/stop time tracking
-- **📝 Notes**: Add detailed task notes
-- **👤 Assign**: Assign to team members
-- **🔍 Details**: View complete task information
-
-**Filtering:**
-- Filter by phase using dropdown
-- Filter by task type
-- Filters work together for precise results
-
-**Bulk Operations:**
-- **📤 Export All**: Export all tasks to CSV
-- **✅ Export Completed**: Export only completed tasks
-- **🔄 Sync to Files**: Update original CSV files
+**Task Management:**
+- Mark tasks as complete/incomplete
+- Filter by phase or task type
+- View task statistics
+- Track overall progress
 
 ### 🎯 Milestones Tab
 **Visual timeline of major project milestones**
 - Shows key business milestones
 - Progress indicators
 - Timeline visualization
-- Milestone descriptions and dates
+- Milestone descriptions and phases
 
 ### 📊 Timeline Tab
 **Gantt chart visualization**
-- Project timeline view
-- Task dependencies
+- Project timeline view from CSV data
+- Task dependencies and scheduling
 - Phase-based organization
 - Duration and date information
-
-### 💰 Budget Tab
-**Budget management features**
-- Add budget items
-- Track expenses
-- Budget vs actual reporting
-- Financial overview
-
-### ⚠️ Risks Tab
-**Risk management system**
-- Risk matrix visualization
-- Add and categorize risks
-- Impact and probability assessment
-- Mitigation tracking
-
-### 👥 Stakeholders Tab
-**Stakeholder management**
-- Stakeholder matrix
-- Contact information
-- Influence and interest mapping
-- Communication tracking
+- Critical path visualization
 
 ### 📈 Analytics Tab
 **Comprehensive project analytics**
-- **Overall Progress**: Completion percentage
-- **Progress by Phase**: Phase-wise completion
-- **Team Workload**: Task distribution by team member
-- **Time Distribution**: Time spent by phase
-- **Completion Timeline**: Progress over time
+- **Overall Progress**: Completion percentage circle
+- **Tasks by Phase**: Phase-wise breakdown
+- **Completion Trends**: Progress over time
+- **Visual Charts**: Interactive progress displays
 
 ### 💵 Revenue Tab
-**Revenue calculator and tracking**
+**Revenue calculator and financial tracking**
 - Set hourly rate and weekly hours
 - Calculate weekly/monthly revenue
-- Track progress toward targets
+- Track progress toward financial targets
 - Survival and expansion thresholds
+- Business growth metrics
 
 ---
 
 ## Advanced Features
 
-### Time Tracking
-1. **Start Timer**: Click ▶️ button on any task
-2. **Stop Timer**: Click ⏹️ button (timer shows elapsed time)
-3. **View Time**: Time spent appears in task card
-4. **Export Time**: Time data included in CSV exports
+### CSV Data Import
+**Automatic Data Loading:**
+- Detects CSV files in project folder
+- Supports both comma and pipe-separated formats
+- Handles Task List and Gantt Chart files
+- Real-time data processing and display
 
-### Team Management
-1. **Assign Tasks**: Click 👤 button on task card
-2. **Manage Team**: Click "📝 Manage Team" in assignment modal
-3. **Add Members**: Type name and click "➕ Add"
-4. **Remove Members**: Click ❌ next to member name
-5. **Save Changes**: Click "Save Team" to persist changes
+**Supported Formats:**
+- Task List: Comma-separated values (CSV)
+- Gantt Chart: Pipe-separated values (PSV)
+- Automatic format detection
+- Error handling for malformed data
 
-### Notes System
-1. **Add Notes**: Click 📝 button on task card
-2. **Edit Notes**: Modify text in modal dialog
-3. **Save Notes**: Click "Save Notes" to store
-4. **View Notes**: Notes preview appears in task card
+### Progress Tracking
+**Task Completion:**
+- Click checkboxes to mark tasks complete
+- Progress automatically calculated
+- Visual progress indicators
+- Phase-based completion tracking
 
-### Export & Sync
-**Export Options:**
-- **Export All**: All tasks with current status
-- **Export Completed**: Only finished tasks
-- **Export Charts**: Analytics charts as PNG images
+**Analytics Dashboard:**
+- Real-time progress charts
+- Phase breakdown analysis
+- Completion percentage tracking
+- Visual progress indicators
 
-**Sync to Original:**
-- Updates your source CSV files
-- Adds completion status, assignments, notes
-- ⚠️ **Warning**: This modifies your original files
+### Sample Data
+**Demo Mode:**
+- Click "🔄 Load Sample Data" for demonstration
+- Shows all features with example tasks
+- Perfect for testing and learning
+- No CSV files required
 
-### Analytics & Reporting
-**Chart Types:**
-- Doughnut charts for progress overview
-- Bar charts for phase and team analysis
-- Line charts for timeline tracking
-- Time distribution visualization
+---
 
-**Export Charts:**
-- Saves all charts as PNG images
-- Includes project name and date
-- Professional presentation quality
+## Technology Stack
+
+### Native Windows Application
+- **Frontend**: HTML, CSS, JavaScript
+- **Backend**: Rust (Tauri framework)
+- **Performance**: Native speed and efficiency
+- **Size**: ~13MB (vs 100MB+ Electron apps)
+
+### Benefits of Tauri
+- ✅ **Small file size** - Minimal disk footprint
+- ✅ **Native performance** - Rust-powered backend
+- ✅ **Better security** - Sandboxed execution
+- ✅ **Lower memory usage** - No browser overhead
+- ✅ **True Windows integration** - Native OS behavior
 
 ---
 
@@ -204,8 +194,6 @@ YourProject/
 
 | Shortcut | Action |
 |----------|--------|
-| `F1` | Start guided tutorial |
-| `Ctrl+H` | Start guided tutorial |
 | `F5` | Refresh data from CSV files |
 | `Ctrl+Q` | Quit application |
 
@@ -218,46 +206,45 @@ YourProject/
 **"No tasks found" message:**
 - Verify CSV files exist in `03-Project Management/` folder
 - Check CSV file format and required columns
-- Click 🔄 Refresh button to reload data
+- Use "🔄 Load Sample Data" to test functionality
 
 **App won't start:**
-- Ensure Node.js is installed
-- Run `npm install` in LaunchPad directory
-- Check console for error messages
+- Ensure you have the correct executable
+- Check Windows compatibility (64-bit required)
+- Run as administrator if needed
 
-**Data not saving:**
-- Ensure project folder is writable
-- Check disk space availability
-- Verify folder permissions
+**CSV files not loading:**
+- Verify file names: `Task List.csv` and `Gantt Chart.csv`
+- Check file format (CSV vs pipe-separated)
+- Ensure files are not corrupted or locked
 
-**Charts not displaying:**
-- Switch to Analytics tab to trigger rendering
-- Click "🔄 Refresh" button in Analytics tab
-- Ensure Chart.js library loaded properly
+**Performance issues:**
+- Close other applications to free memory
+- Ensure adequate disk space
+- Restart the application
+
+### File Locations
+
+**Executable Locations:**
+- Standalone: `LaunchPad.exe` (portable)
+- Installed: `%PROGRAMFILES%\LaunchPad\LaunchPad.exe`
+- Development: `src-tauri\target\release\app.exe`
+
+**Project Data:**
+- CSV files: `YourProject/03-Project Management/`
+- Task completion: Stored in memory (resets on restart)
 
 ### Getting Help
 
-**Built-in Help:**
-- Click **?** buttons next to features for contextual help
-- Use **F1** to restart the guided tutorial
-- Hover over buttons for tooltip information
+**Built-in Features:**
+- Sample data for testing functionality
+- Clear error messages for troubleshooting
+- Intuitive interface design
 
-**File Locations:**
-- Progress data: `YourProject/.launchpad-progress.json`
-- Original CSV files: `YourProject/03-Project Management/`
-- Exported files: User-selected location
-
-### Data Recovery
-
-**If progress is lost:**
-1. Check for `.launchpad-progress.json` in project folder
-2. Restore from backup if available
-3. Re-complete tasks (progress auto-saves)
-
-**If CSV files are corrupted:**
-1. Restore from version control or backup
-2. Ensure proper CSV format and encoding
-3. Verify required columns exist
+**Development:**
+- Source code: https://github.com/mikeartee/LaunchPad
+- Issues: Report on GitHub repository
+- Documentation: README.md and this manual
 
 ---
 
@@ -266,25 +253,25 @@ YourProject/
 ### Project Organization
 - Use consistent naming for phases and task types
 - Keep task summaries concise but descriptive
-- Regularly update CSV files with new tasks
+- Maintain proper CSV file structure
 
-### Team Collaboration
-- Assign tasks to specific team members
-- Use notes for detailed task instructions
-- Export completed tasks for progress reports
+### CSV File Management
+- Use UTF-8 encoding for CSV files
+- Avoid special characters in file names
+- Keep files in the required directory structure
 
-### Time Management
-- Start timers when beginning work
-- Stop timers during breaks
-- Review time reports to optimize workflow
+### Performance Optimization
+- Close unused applications
+- Keep CSV files reasonably sized
+- Restart app if performance degrades
 
 ### Data Management
-- Export data regularly for backups
-- Sync to original files for version control
-- Use consistent date formats in CSV files
+- Backup CSV files regularly
+- Use version control for project files
+- Test with sample data before importing large datasets
 
 ---
 
-**Need more help?** Use the built-in tutorial system (`F1`) or click the help buttons (?) throughout the interface for contextual assistance.
+**Need more help?** Check the GitHub repository at https://github.com/mikeartee/LaunchPad for additional documentation and support.
 
 *LaunchPad - Your Universal Project Management Solution* 🚀
