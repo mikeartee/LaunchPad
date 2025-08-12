@@ -8,6 +8,51 @@ let activeTimers = {};
 let teamMembers = [];
 let charts = {};
 
+// Helper function for contextual help
+function getCurrentTabHelp() {
+    const activeTab = document.querySelector('.tab-button.active');
+    if (!activeTab) return;
+    
+    const tabName = activeTab.dataset.tab;
+    const helpKey = {
+        'tasks': 'tasks',
+        'revenue': 'revenue',
+        'gantt': 'timeline'
+    }[tabName] || 'tasks';
+    
+    quickHelp.show(helpKey, activeTab);
+}
+
+// Show welcome modal for first-time users
+function showWelcomeModal() {
+    if (localStorage.getItem('launchpad-welcome-shown')) return;
+    
+    const modal = document.createElement('div');
+    modal.className = 'welcome-modal';
+    modal.innerHTML = `
+        <div class="welcome-content">
+            <h2>Welcome to LaunchPad! 🚀</h2>
+            <p>Your universal project management tool. Would you like a quick tour to get started?</p>
+            <div class="welcome-buttons">
+                <button class="welcome-btn secondary" onclick="skipWelcome()">Skip</button>
+                <button class="welcome-btn primary" onclick="startWelcomeTour()">Take Tour</button>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+    localStorage.setItem('launchpad-welcome-shown', 'true');
+}
+
+function skipWelcome() {
+    document.querySelector('.welcome-modal').remove();
+}
+
+function startWelcomeTour() {
+    document.querySelector('.welcome-modal').remove();
+    tutorialSystem.start();
+}
+
 // Initialize app
 document.addEventListener('DOMContentLoaded', async () => {
     await loadProjectInfo();
@@ -16,6 +61,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     updateStats();
     setupRevenueCalculator();
     initializeTooltips();
+    
+    // Show welcome modal after a short delay
+    setTimeout(() => {
+        if (tutorialSystem.shouldShowOnStartup()) {
+            showWelcomeModal();
+        }
+    }, 1000);
 });
 
 // Load CSV data
@@ -46,6 +98,11 @@ async function loadData() {
         renderTasks();
         populateFilters();
         renderGanttChart();
+        
+        // Update tutorial steps based on loaded data
+        if (window.tutorialSystem && allTasks.length > 0) {
+            tutorialSystem.steps[1].content = `Great! You have ${allTasks.length} tasks loaded. Click here to select a different project if needed.`;
+        }
     } catch (error) {
         console.error('Error loading data:', error);
         showError('Failed to load project data. Make sure CSV files are in the correct location.');
@@ -82,6 +139,14 @@ function setupEventListeners() {
     // Revenue calculator
     document.getElementById('hourly-rate').addEventListener('input', calculateRevenue);
     document.getElementById('hours-week').addEventListener('input', calculateRevenue);
+    
+    // Add keyboard shortcut for tutorial
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'F1' || (e.ctrlKey && e.key === 'h')) {
+            e.preventDefault();
+            tutorialSystem.start();
+        }
+    });
 }
 
 // Switch tabs
@@ -1336,3 +1401,6 @@ window.removeMember = removeMember;
 window.saveTeam = saveTeam;
 window.renderCharts = renderCharts;
 window.exportCharts = exportCharts;
+window.getCurrentTabHelp = getCurrentTabHelp;
+window.skipWelcome = skipWelcome;
+window.startWelcomeTour = startWelcomeTour;

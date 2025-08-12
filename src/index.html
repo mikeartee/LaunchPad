@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LaunchPad - Project Manager</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="tutorial.css">
 </head>
 <body>
     <div class="container">
@@ -12,6 +13,7 @@
             <div class="project-header">
                 <h1 id="project-title">🚀 LaunchPad</h1>
                 <button id="open-project-btn" class="open-project-btn">📁 Open Project</button>
+                <button class="help-btn" onclick="quickHelp.show('select-project', this)" title="Help">?</button>
             </div>
             <p id="project-summary" class="project-summary">Select a project folder to get started</p>
             <div class="stats">
@@ -39,6 +41,7 @@
             <button class="tab-button" data-tab="stakeholders">👥 Stakeholders</button>
             <button class="tab-button" data-tab="analytics">📈 Analytics</button>
             <button class="tab-button" data-tab="revenue">💵 Revenue</button>
+            <button class="help-btn" onclick="getCurrentTabHelp()" title="Help">?</button>
         </nav>
 
         <main>
@@ -241,10 +244,14 @@
     </div>
     
     <script src="../node_modules/chart.js/dist/chart.umd.js"></script>
+    <script src="tutorial.js"></script>
     <script src="risk-manager.js"></script>
     <script src="stakeholder-manager.js"></script>
     <script src="budget-manager.js"></script>
     <script src="renderer.js"></script>
     <script src="renderer-extensions.js"></script>
+    
+    <!-- Tutorial Start Button -->
+    <button class="tutorial-start-btn" onclick="tutorialSystem.start()" title="Start Tutorial">📚 Take Tour</button>
 </body>
 </html>
