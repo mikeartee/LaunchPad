@@ -2,40 +2,15 @@
   "name": "launchpad",
   "version": "1.0.0",
   "description": "Universal project management app for any structured project",
-  "main": "main.js",
   "scripts": {
-    "start": "electron .",
-    "build": "electron-builder",
-    "serve": "node serve.js",
     "tauri": "tauri",
     "tauri:dev": "tauri dev",
     "tauri:build": "tauri build"
   },
   "author": "Michael Rewiri-Thorsen",
   "license": "MIT",
-  "devDependencies": {
-    "electron": "^22.0.0",
-    "electron-builder": "^24.0.0"
-  },
+  "devDependencies": {},
   "dependencies": {
-    "@tauri-apps/api": "^2.7.0",
-    "chart.js": "^4.4.0",
-    "csv-parser": "^3.0.0",
-    "date-fns": "^2.30.0"
-  },
-  "build": {
-    "appId": "com.mikerewiri.launchpad",
-    "productName": "LaunchPad",
-    "directories": {
-      "output": "dist"
-    },
-    "win": {
-      "target": "portable",
-      "icon": "assets/icon.ico"
-    },
-    "nsis": {
-      "oneClick": false,
-      "allowToChangeInstallationDirectory": true
-    }
+    "@tauri-apps/api": "^2.7.0"
   }
 }

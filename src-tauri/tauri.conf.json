@@ -4,10 +4,7 @@
   "version": "0.1.0",
   "identifier": "com.mikerewiri.launchpad",
   "build": {
-    "frontendDist": "..",
-    "devUrl": "http://localhost:3000",
-    "beforeDevCommand": "npm run serve",
-    "beforeBuildCommand": ""
+    "frontendDist": "../src"
   },
   "app": {
     "windows": [
