@@ -1,20 +1,25 @@
 [package]
-name = "launchpad"
-version = "1.0.0"
-description = "Universal project management app for any structured project"
-authors = ["Michael Rewiri-Thorsen"]
-license = "MIT"
-repository = "https://github.com/mikeartee/LaunchPad"
+name = "app"
+version = "0.1.0"
+description = "A Tauri App"
+authors = ["you"]
+license = ""
+repository = ""
 edition = "2021"
+rust-version = "1.77.2"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+name = "app_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
 
 [build-dependencies]
-tauri-build = { version = "1.0", features = [] }
+tauri-build = { version = "2.3.1", features = [] }
 
 [dependencies]
-tauri = { version = "1.0", features = ["api-all"] }
-serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
-
-[features]
-default = ["custom-protocol"]
-custom-protocol = ["tauri/custom-protocol"]
+serde = { version = "1.0", features = ["derive"] }
+log = "0.4"
+tauri = { version = "2.7.0", features = [] }
+tauri-plugin-log = "2"
