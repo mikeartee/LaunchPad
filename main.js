@@ -291,6 +291,45 @@ ipcMain.handle('save-task-assignment', async (event, taskId, assignedTo) => {
   return await saveProgress(progress);
 });
 
+// Get team members
+ipcMain.handle('get-team-members', async () => {
+  if (!isAuthorized()) return [];
+  
+  const progressFile = getProgressFilePath();
+  if (!progressFile) return [];
+  
+  const teamFile = path.join(path.dirname(progressFile), '.launchpad-team.json');
+  
+  try {
+    if (fs.existsSync(teamFile)) {
+      const data = fs.readFileSync(teamFile, 'utf8');
+      return JSON.parse(data);
+    }
+  } catch (error) {
+    console.error('Error loading team members:', error);
+  }
+  
+  return ['Team Member']; // Default team member
+});
+
+// Save team members
+ipcMain.handle('save-team-members', async (event, teamMembers) => {
+  if (!isAuthorized() || !Array.isArray(teamMembers)) return false;
+  
+  const progressFile = getProgressFilePath();
+  if (!progressFile) return false;
+  
+  const teamFile = path.join(path.dirname(progressFile), '.launchpad-team.json');
+  
+  try {
+    fs.writeFileSync(teamFile, JSON.stringify(teamMembers, null, 2));
+    return true;
+  } catch (error) {
+    console.error('Error saving team members:', error);
+    return false;
+  }
+});
+
 app.whenReady().then(createWindow);
 
 app.on('window-all-closed', () => {

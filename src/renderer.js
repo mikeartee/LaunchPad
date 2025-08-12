@@ -1108,13 +1108,7 @@ async function exportCharts() {
     
     // Export to project folder
     try {
-        // const result = await electronAPI.exportChartsToFolder(chartDataArray); // TODO: Implement if needed
-        
-        if (result.success) {
-            showNotification(`📊 ${result.fileCount} charts exported to:\n${result.exportPath}`);
-        } else {
-            showNotification(`❌ Export failed: ${result.error}`, 'error');
-        }
+        showNotification('📊 Chart export feature coming soon!', 'info');
     } catch (error) {
         console.error('Export error:', error);
         showNotification('❌ Export failed - check console for details', 'error');
@@ -1207,10 +1201,10 @@ function renderGanttChart() {
         phases[item.phase].push(item);
     });
 
-    // Define phase order
-    const phaseOrder = ['Foundation', 'Brand', 'Digital', 'Content', 'Thought Leadership', 'Client Acquisition', 'Revenue Target', 'Operations', 'Team Expansion', 'Growth Systems'];
+    // Sort phases alphabetically for generic use
+    const sortedPhases = Object.keys(phases).sort();
     
-    const sortedPhases = phaseOrder.filter(phase => phases[phase]);
+
     
     container.innerHTML = sortedPhases.map(phase => {
         const phaseTasks = phases[phase].sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
@@ -1220,8 +1214,8 @@ function renderGanttChart() {
                 <h4>📋 ${phase} Phase</h4>
                 <div class="gantt-tasks">
                     ${phaseTasks.map(task => {
-                        const startDate = new Date(task.startDate).toLocaleDateString('en-NZ', { month: 'short', day: 'numeric' });
-                        const endDate = new Date(task.endDate).toLocaleDateString('en-NZ', { month: 'short', day: 'numeric' });
+                        const startDate = new Date(task.startDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                        const endDate = new Date(task.endDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
                         
                         return `
                             <div class="gantt-task">
@@ -1245,37 +1239,37 @@ function setupRevenueCalculator() {
 }
 
 function calculateRevenue() {
-    const hourlyRate = parseFloat(document.getElementById('hourly-rate').value) || 190;
-    const hoursPerWeek = parseFloat(document.getElementById('hours-week').value) || 10;
+    const hourlyRate = parseFloat(document.getElementById('hourly-rate').value) || 50;
+    const hoursPerWeek = parseFloat(document.getElementById('hours-week').value) || 40;
 
     const weeklyRevenue = hourlyRate * hoursPerWeek;
     const monthlyRevenue = weeklyRevenue * 4.33; // Average weeks per month
 
-    document.getElementById('weekly-revenue').textContent = `NZ$${weeklyRevenue.toLocaleString()}`;
-    document.getElementById('monthly-revenue').textContent = `NZ$${monthlyRevenue.toLocaleString()}`;
+    document.getElementById('weekly-revenue').textContent = `$${weeklyRevenue.toLocaleString()}`;
+    document.getElementById('monthly-revenue').textContent = `$${monthlyRevenue.toLocaleString()}`;
 
-    // Update status indicators
-    const survivalTarget = 4500;
-    const expansionTarget = 7500;
+    // Update status indicators with generic targets
+    const survivalTarget = 3000;
+    const expansionTarget = 5000;
 
     const survivalStatus = document.getElementById('survival-status');
     const expansionStatus = document.getElementById('expansion-status');
 
     if (monthlyRevenue >= survivalTarget) {
-        survivalStatus.textContent = '✅ Achieved';
+        survivalStatus.textContent = '✅ Target achieved';
         survivalStatus.style.color = '#4caf50';
     } else {
         const needed = survivalTarget - monthlyRevenue;
-        survivalStatus.textContent = `❌ Need NZ$${needed.toLocaleString()} more`;
+        survivalStatus.textContent = `❌ Need $${needed.toLocaleString()} more`;
         survivalStatus.style.color = '#f44336';
     }
 
     if (monthlyRevenue >= expansionTarget) {
-        expansionStatus.textContent = '✅ Ready to hire team';
+        expansionStatus.textContent = '✅ Ready for expansion';
         expansionStatus.style.color = '#4caf50';
     } else {
         const needed = expansionTarget - monthlyRevenue;
-        expansionStatus.textContent = `⏳ Need NZ$${needed.toLocaleString()} more`;
+        expansionStatus.textContent = `⏳ Need $${needed.toLocaleString()} more`;
         expansionStatus.style.color = '#ff9800';
     }
 }
