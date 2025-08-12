@@ -9,6 +9,16 @@ Thumbs.db
 .env.test.local
 .env.production.local
 
+# Development files
+.vscode/
+.amazonq/
+data/
+*.pdf
+*.bat
+CHAT_LOG.md
+COURSE_FEATURES.md
+PROJECT_STRUCTURE.md
+
 # LaunchPad specific
 .launchpad-progress.json
 .launchpad-team.json
