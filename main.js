@@ -99,7 +99,7 @@ ipcMain.handle('load-csv-data', async () => {
   if (!isAuthorized()) return { tasks: [], gantt: [], projectPath: null };
   
   if (!currentProjectPath) {
-    currentProjectPath = path.join(__dirname, '..', 'Zoomed In Business Plan');
+    return { tasks: [], gantt: [], projectPath: null };
   }
   
   const dataPath = path.join(currentProjectPath, '03-Project Management');

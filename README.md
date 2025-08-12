@@ -31,9 +31,16 @@ A custom Electron desktop application for managing any structured project.
 ## Usage
 
 ### First Launch
-The app automatically loads your business plan data from:
-- `../Zoomed In Business Plan/03-Project Management/Task List.csv`
-- `../Zoomed In Business Plan/03-Project Management/Gantt Chart.csv`
+1. Click "Select Project" to choose your project folder
+2. Your project should have this structure:
+   ```
+   YourProject/
+   ├── 01-Planning Documents/
+   │   └── Business Summary.md
+   └── 03-Project Management/
+       ├── Task List.csv
+       └── Gantt Chart.csv
+   ```
 
 ### Features Overview
 
@@ -86,7 +93,8 @@ You can modify the app by editing:
 - Run `npm install` in the app directory
 
 **No data showing:**
-- Check that CSV files exist in the Business Plan folder
+- Click "Select Project" to choose your project folder
+- Ensure CSV files exist in the 03-Project Management folder
 - Click the "Refresh" button to reload data
 
 **Tasks not saving:**
@@ -106,14 +114,13 @@ This creates a Windows installer in the `dist/` folder.
 
 To resume development conversations with Amazon Q:
 ```
-Resume LaunchPad development - check @LaunchPad folder and CHAT_LOG.md
+Resume LaunchPad development - check @LaunchPad folder for current project status
 ```
 
 **What this does:**
 - Loads the entire LaunchPad project context
-- Reviews CHAT_LOG.md for previous development sessions
-- Provides Amazon Q with current project status and features
-- Enables immediate continuation of development work without re-explaining the project
+- Provides current project status and features
+- Enables immediate continuation of development work
 
 ---
 
