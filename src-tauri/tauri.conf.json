@@ -1,0 +1,22 @@
+{
+  "build": {
+    "distDir": "../",
+    "devPath": "../web-version.html"
+  },
+  "package": {
+    "productName": "LaunchPad",
+    "version": "1.0.0"
+  },
+  "tauri": {
+    "bundle": {
+      "identifier": "com.mikerewiri.launchpad"
+    },
+    "windows": [
+      {
+        "title": "LaunchPad - Universal Project Manager",
+        "width": 1200,
+        "height": 800
+      }
+    ]
+  }
+}
