@@ -1,0 +1,18 @@
+{
+    "files.watcherExclude": {
+        "**/node_modules/**": true,
+        "**/dist/**": true,
+        "**/build/**": true,
+        "**/.git/**": true,
+        "**/Presentations/**": true
+    },
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/dist": true,
+        "**/build": true,
+        "**/Presentations": true
+    },
+    "git.ignoreLimitWarning": true,
+    "scm.defaultViewMode": "tree",
+    "git.decorations.enabled": false
+}
