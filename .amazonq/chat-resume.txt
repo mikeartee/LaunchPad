@@ -1,0 +1,17 @@
+LAUNCHPAD PROJECT RESUME CONTEXT
+
+Quick context for Amazon Q when resuming LaunchPad development:
+
+PROJECT: LaunchPad - Electron-based project management app
+LOCATION: C:\Users\Mike RT\Desktop\LaunchPad\
+STATUS: Fully functional, no current issues
+
+KEY FILES:
+- main.js (Electron main process)
+- src/renderer.js (Frontend logic)  
+- src/index.html (UI structure)
+- CHAT_LOG.md (Development history)
+
+CURRENT STATE: Application working fine, user requested chat log system for tracking progress
+
+RESUME COMMAND: "Check @LaunchPad folder and CHAT_LOG.md for previous development context"

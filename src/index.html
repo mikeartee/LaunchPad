@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LaunchPad - Project Manager</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="project-header">
+                <h1 id="project-title">🚀 LaunchPad</h1>
+                <button id="open-project-btn" class="open-project-btn">📁 Open Project</button>
+            </div>
+            <p id="project-summary" class="project-summary">Select a project folder to get started</p>
+            <div class="stats">
+                <div class="stat-card">
+                    <span class="stat-number" id="total-tasks">0</span>
+                    <span class="stat-label">Total Tasks</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" id="completed-tasks">0</span>
+                    <span class="stat-label">Completed</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" id="progress-percent">0%</span>
+                    <span class="stat-label">Progress</span>
+                </div>
+            </div>
+        </header>
+
+        <nav class="tabs">
+            <button class="tab-button active" data-tab="tasks">📋 Tasks</button>
+            <button class="tab-button" data-tab="milestones">🎯 Milestones</button>
+            <button class="tab-button" data-tab="gantt">📊 Timeline</button>
+            <button class="tab-button" data-tab="budget">💰 Budget</button>
+            <button class="tab-button" data-tab="risks">⚠️ Risks</button>
+            <button class="tab-button" data-tab="stakeholders">👥 Stakeholders</button>
+            <button class="tab-button" data-tab="analytics">📈 Analytics</button>
+            <button class="tab-button" data-tab="revenue">💵 Revenue</button>
+        </nav>
+
+        <main>
+            <!-- Tasks Tab -->
+            <div id="tasks-tab" class="tab-content active">
+                <div class="filter-bar">
+                    <select id="phase-filter">
+                        <option value="">All Phases</option>
+                    </select>
+                    <select id="type-filter">
+                        <option value="">All Types</option>
+                    </select>
+                    <div class="button-group">
+                        <button id="refresh-btn">🔄 Refresh</button>
+                        <button id="change-project-btn">📁 Change Project</button>
+                    </div>
+                    <div class="export-buttons">
+                        <button id="export-all-btn" class="export-btn" data-tooltip="export-all">📤 Export All</button>
+                        <button id="export-completed-btn" class="export-btn" data-tooltip="export-completed">✅ Export Completed</button>
+                        <button id="sync-btn" class="sync-btn" data-tooltip="sync-files">🔄 Sync to Files</button>
+                    </div>
+                </div>
+                <div id="tasks-container" class="tasks-grid">
+                    <!-- Tasks will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Milestones Tab -->
+            <div id="milestones-tab" class="tab-content">
+                <div class="milestones-timeline">
+                    <div class="milestone-item">
+                        <div class="milestone-marker completed"></div>
+                        <div class="milestone-content">
+                            <h3>Business Legally Operational</h3>
+                            <p>IRD registration, bank account, accounting system</p>
+                            <span class="milestone-date">Week 1-2</span>
+                        </div>
+                    </div>
+                    <div class="milestone-item">
+                        <div class="milestone-marker"></div>
+                        <div class="milestone-content">
+                            <h3>Brand Identity Established</h3>
+                            <p>Logo, headshots, brand messaging</p>
+                            <span class="milestone-date">Week 3-4</span>
+                        </div>
+                    </div>
+                    <div class="milestone-item">
+                        <div class="milestone-marker"></div>
+                        <div class="milestone-content">
+                            <h3>First Paying Clients</h3>
+                            <p>NZ$4,500+ monthly revenue target</p>
+                            <span class="milestone-date">Month 3-6</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gantt Tab -->
+            <div id="gantt-tab" class="tab-content">
+                <div class="gantt-container">
+                    <div class="gantt-header">
+                        <h3>Project Timeline</h3>
+                        <p>Critical path and dependencies</p>
+                    </div>
+                    <div id="gantt-chart" class="gantt-chart">
+                        <!-- Gantt chart will be rendered here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analytics Tab -->
+            <div id="analytics-tab" class="tab-content">
+                <div class="analytics-container">
+                    <div class="analytics-header">
+                        <h3>📈 Project Analytics</h3>
+                        <div class="chart-controls">
+                            <button id="export-charts-btn" class="export-btn" data-tooltip="export-charts">📊 Export Charts</button>
+                            <button id="refresh-charts-btn" data-tooltip="refresh-charts">🔄 Refresh</button>
+                        </div>
+                    </div>
+                    
+                    <div class="charts-grid">
+                        <div class="chart-card">
+                            <h4>📊 Overall Progress</h4>
+                            <canvas id="progress-chart"></canvas>
+                        </div>
+                        
+                        <div class="chart-card">
+                            <h4>📋 Progress by Phase</h4>
+                            <canvas id="phase-chart"></canvas>
+                        </div>
+                        
+                        <div class="chart-card">
+                            <h4>👥 Team Workload</h4>
+                            <canvas id="team-chart"></canvas>
+                        </div>
+                        
+                        <div class="chart-card">
+                            <h4>⏱️ Time Distribution</h4>
+                            <canvas id="time-chart"></canvas>
+                        </div>
+                        
+                        <div class="chart-card full-width">
+                            <h4>📈 Completion Timeline</h4>
+                            <canvas id="timeline-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Budget Tab -->
+            <div id="budget-tab" class="tab-content">
+                <div class="budget-container">
+                    <div class="budget-header">
+                        <h3>💰 Budget Management</h3>
+                        <div class="budget-controls">
+                            <button id="add-budget-item-btn" class="primary">➕ Add Budget Item</button>
+                            <button id="add-expense-btn" class="secondary">💸 Add Expense</button>
+                        </div>
+                    </div>
+                    <div class="budget-summary" id="budget-summary">
+                        <!-- Budget summary will be rendered here -->
+                    </div>
+                    <div class="budget-details" id="budget-details">
+                        <!-- Budget details will be rendered here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Risks Tab -->
+            <div id="risks-tab" class="tab-content">
+                <div class="risks-container">
+                    <div class="risks-header">
+                        <h3>⚠️ Risk Management</h3>
+                        <button id="add-risk-btn" class="primary">➕ Add Risk</button>
+                    </div>
+                    <div class="risk-matrix" id="risk-matrix">
+                        <!-- Risk matrix will be rendered here -->
+                    </div>
+                    <div class="risks-list" id="risks-list">
+                        <!-- Risks list will be rendered here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stakeholders Tab -->
+            <div id="stakeholders-tab" class="tab-content">
+                <div class="stakeholders-container">
+                    <div class="stakeholders-header">
+                        <h3>👥 Stakeholder Management</h3>
+                        <button id="add-stakeholder-btn" class="primary">➕ Add Stakeholder</button>
+                    </div>
+                    <div class="stakeholder-matrix" id="stakeholder-matrix">
+                        <!-- Stakeholder matrix will be rendered here -->
+                    </div>
+                    <div class="stakeholders-list" id="stakeholders-list">
+                        <!-- Stakeholders list will be rendered here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Revenue Tab -->
+            <div id="revenue-tab" class="tab-content">
+                <div class="revenue-calculator">
+                    <h3>Revenue Calculator</h3>
+                    <div class="calc-row">
+                        <label>Hourly Rate (NZ$):</label>
+                        <input type="number" id="hourly-rate" value="190" min="100" max="500">
+                    </div>
+                    <div class="calc-row">
+                        <label>Hours per Week:</label>
+                        <input type="number" id="hours-week" value="10" min="1" max="40">
+                    </div>
+                    <div class="calc-results">
+                        <div class="result-item">
+                            <span class="result-label">Weekly Revenue:</span>
+                            <span class="result-value" id="weekly-revenue">NZ$1,900</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">Monthly Revenue:</span>
+                            <span class="result-value" id="monthly-revenue">NZ$8,233</span>
+                        </div>
+                        <div class="result-item survival">
+                            <span class="result-label">Survival Target (NZ$4,500):</span>
+                            <span class="result-value" id="survival-status">✅ Achieved</span>
+                        </div>
+                        <div class="result-item expansion">
+                            <span class="result-label">Team Expansion (NZ$7,500):</span>
+                            <span class="result-value" id="expansion-status">✅ Ready</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="dynamic-tooltip" class="dynamic-tooltip">
+        <div class="tooltip-content"></div>
+        <div class="tooltip-arrow"></div>
+    </div>
+    
+    <script src="../node_modules/chart.js/dist/chart.umd.js"></script>
+    <script src="risk-manager.js"></script>
+    <script src="stakeholder-manager.js"></script>
+    <script src="budget-manager.js"></script>
+    <script src="renderer.js"></script>
+    <script src="renderer-extensions.js"></script>
+</body>
+</html>
