@@ -298,6 +298,39 @@ ipcMain.handle('get-team-members', async () => {
   const progressFile = getProgressFilePath();
   if (!progressFile) return [];
   
+  try {
+    const progress = await loadProgress();
+    return progress.teamMembers || ['Project Manager', 'Developer', 'Designer'];
+  } catch (error) {
+    console.error('Error loading team members:', error);
+    return ['Project Manager', 'Developer', 'Designer'];
+  }
+});
+
+// Save team members
+ipcMain.handle('save-team-members', async (event, teamMembers) => {
+  if (!isAuthorized() || !Array.isArray(teamMembers)) return false;
+  
+  try {
+    const progress = await loadProgress();
+    progress.teamMembers = teamMembers;
+    return await saveProgress(progress);
+  } catch (error) {
+    console.error('Error saving team members:', error);
+    return false;
+  }
+});
+
+app.whenReady().then(createWindow);
+
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') app.quit();
+});
+
+app.on('activate', () => {
+  if (BrowserWindow.getAllWindows().length === 0) createWindow();
+});
+  
   const teamFile = path.join(path.dirname(progressFile), '.launchpad-team.json');
   
   try {

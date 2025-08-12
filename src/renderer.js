@@ -1371,11 +1371,18 @@ async function loadProjectInfo() {
 // Select project folder
 async function selectProject() {
     try {
+        console.log('Attempting to select project folder...');
         const projectPath = await electronAPI.selectProjectFolder();
+        console.log('Selected project path:', projectPath);
+        
         if (projectPath) {
+            console.log('Loading project info and data...');
             await loadProjectInfo();
             await loadData();
             updateStats();
+            showNotification('✅ Project loaded successfully!');
+        } else {
+            console.log('No project selected');
         }
     } catch (error) {
         console.error('Error selecting project:', error);
