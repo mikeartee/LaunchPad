@@ -1,4 +1,8 @@
-const { app, BrowserWindow, Menu, ipcMain, dialog } = require('electron');
+const electron = require('electron');
+const app = electron.app;
+const BrowserWindow = electron.BrowserWindow;
+const ipcMain = electron.ipcMain;
+const dialog = electron.dialog;
 const path = require('path');
 const fs = require('fs');
 const csv = require('csv-parser');
@@ -58,6 +62,8 @@ function isAuthorized() {
   return mainWindow && !mainWindow.isDestroyed();
 }
 
+// Setup IPC handlers
+function setupIpcHandlers() {
 // Select project folder
 ipcMain.handle('select-project-folder', async () => {
   if (!isAuthorized()) return null;
@@ -295,9 +301,6 @@ ipcMain.handle('save-task-assignment', async (event, taskId, assignedTo) => {
 ipcMain.handle('get-team-members', async () => {
   if (!isAuthorized()) return [];
   
-  const progressFile = getProgressFilePath();
-  if (!progressFile) return [];
-  
   try {
     const progress = await loadProgress();
     return progress.teamMembers || ['Project Manager', 'Developer', 'Designer'];
@@ -320,8 +323,12 @@ ipcMain.handle('save-team-members', async (event, teamMembers) => {
     return false;
   }
 });
+}
 
-app.whenReady().then(createWindow);
+app.whenReady().then(() => {
+  createWindow();
+  setupIpcHandlers();
+});
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit();

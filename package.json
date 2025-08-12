@@ -10,12 +10,12 @@
   "author": "Michael Rewiri-Thorsen",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^28.0.0",
+    "electron": "^28.3.3",
     "electron-builder": "^24.0.0"
   },
   "dependencies": {
-    "csv-parser": "^3.0.0",
     "chart.js": "^4.4.0",
+    "csv-parser": "^3.0.0",
     "date-fns": "^2.30.0"
   },
   "build": {
