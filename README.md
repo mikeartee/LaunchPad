@@ -2,6 +2,8 @@
 
 A native Windows desktop application built with Tauri for managing any structured project.
 
+I created this because I didn't want to pay for software and needed something custom for my Project Management Course at TWOA.
+
 ## Features
 
 - 📋 **Task Management** - Import and track project tasks from CSV files
